@@ -1,6 +1,40 @@
+main {
+    padding: 30px;
+}
+
 #nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+}
+
+.container {
+    width: 600 auto;
+}
+
+#question {
+    margin: 10px;
+}
+
+.btn {
+    background-color: purple;
+    color: gainsboro;
+    padding: 10px;
+    margin: 5px;
+    width: 33%;
+}
+
+.btn:hover {
+    background-color: fuchsia;
+}
+
+#answers {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.hidden {
+    display: none;
 }
