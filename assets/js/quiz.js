@@ -2,6 +2,8 @@ var countdown = document.querySelector('#time')
 var secondsLeft = (questions.length + 1) * 15
 var answerList = document.querySelector('#answers')
 var question = document.querySelector('#question')
+var start = document.querySelector('#start')
+var answersForm = document.querySelector('#answers-form')
 var questionIndex = 0
 
 function quizTime() {
@@ -25,6 +27,15 @@ function displayQuestions(position) {
     }
 
 }
+
+
+start.addEventListener("click", function() {
+    start.classList.add('hidden')
+    answersForm.classList.remove('hidden')
+    quizTime()
+})
+
+
 
 answers.addEventListener("click", function(event) {
     if (event.target.textContent === questions[questionIndex].answer) {
