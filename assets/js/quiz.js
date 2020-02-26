@@ -1,13 +1,13 @@
-var countdown = document.querySelector('#time')
-var secondsLeft = (questions.length + 1) * 15
-var answerList = document.querySelector('#answers')
-var question = document.querySelector('#question')
-var start = document.querySelector('#start')
-var answersForm = document.querySelector('#answers-form')
-var questionIndex = 0
+const countdown = document.querySelector('#time')
+let secondsLeft = (questions.length + 1) * 15
+const answerList = document.querySelector('#answers')
+const question = document.querySelector('#question')
+const start = document.querySelector('#start')
+const answersForm = document.querySelector('#answers-form')
+let questionIndex = 0
 
 function quizTime() {
-    var timerInterval = setInterval(function() {
+    const timerInterval = setInterval(()=> {
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
 
@@ -29,7 +29,7 @@ function displayQuestions(position) {
 }
 
 
-start.addEventListener("click", function() {
+start.addEventListener("click", () => {
     start.classList.add('hidden')
     answersForm.classList.remove('hidden')
     quizTime()
@@ -37,7 +37,7 @@ start.addEventListener("click", function() {
 
 
 
-answers.addEventListener("click", function(event) {
+answers.addEventListener("click", event => {
     if (event.target.textContent === questions[questionIndex].answer) {
         console.log('correct')
         questionIndex++
@@ -56,5 +56,5 @@ answers.addEventListener("click", function(event) {
             console.log('end')
         }
     }
-});
+})
 displayQuestions(questionIndex)

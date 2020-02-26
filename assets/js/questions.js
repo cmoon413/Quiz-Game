@@ -24,4 +24,4 @@ var questions = [{
         answer: "indexOf()"
     }
 
-]
+]  
