@@ -4,14 +4,16 @@ const answerList = document.querySelector('#answers')
 const question = document.querySelector('#question')
 const start = document.querySelector('#start')
 const answersForm = document.querySelector('#answers-form')
+const recordScore = document.querySelector('#record-score')
 let questionIndex = 0
+let score
 
 function quizTime() {
-    const timerInterval = setInterval(()=> {
+    const timerInterval = setInterval(() => {
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
 
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             clearInterval(timerInterval);
 
         }
@@ -27,7 +29,13 @@ function displayQuestions(position) {
     }
 
 }
+const endquiz = () => {
+    answersForm.classList.add('hidden')
+    recordScore.classList.remove('hidden')
 
+}
+
+const penalty = () => { secondsLeft -= 15 }
 
 start.addEventListener("click", () => {
     start.classList.add('hidden')
@@ -39,22 +47,25 @@ start.addEventListener("click", () => {
 
 answers.addEventListener("click", event => {
     if (event.target.textContent === questions[questionIndex].answer) {
-        console.log('correct')
         questionIndex++
         if (questionIndex < questions.length) {
             displayQuestions(questionIndex)
         } else {
-            console.log('end')
+            endquiz()
         }
     } else {
-        console.log('Incorrect')
-        questionIndex++;
 
+        questionIndex++;
         if (questionIndex < questions.length) {
+
+            secondsLeft -= 15
             displayQuestions(questionIndex)
+
         } else {
-            console.log('end')
+            endquiz()
         }
     }
 })
+
+
 displayQuestions(questionIndex)
