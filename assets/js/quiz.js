@@ -14,6 +14,7 @@ function quizTime() {
         countdown.textContent = "time: " + secondsLeft
 
         if (secondsLeft <= 0) {
+            endquiz()
             clearInterval(timerInterval);
 
         }
@@ -58,7 +59,7 @@ answers.addEventListener("click", event => {
         questionIndex++;
         if (questionIndex < questions.length) {
 
-            secondsLeft -= 15
+            penalty()
             displayQuestions(questionIndex)
 
         } else {
