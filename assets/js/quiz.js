@@ -8,7 +8,7 @@ const recordScore = document.querySelector('#record-score')
 let questionIndex = 0
 let score
 
-function quizTime() {
+const quizTime = () => {
     const timerInterval = setInterval(() => {
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
@@ -22,7 +22,7 @@ function quizTime() {
     }, 1000);
 }
 
-function displayQuestions(position) {
+const displayQuestions = position => {
     question.textContent = questions[position].title
     for (let i = 0; i < questions[position].choices.length; i++) {
         answerList.children[i].textContent = questions[position].choices[i]
@@ -30,20 +30,25 @@ function displayQuestions(position) {
     }
 
 }
+
 const endquiz = () => {
     answersForm.classList.add('hidden')
     recordScore.classList.remove('hidden')
 
+
 }
-
-const penalty = () => { secondsLeft -= 15 }
-
-start.addEventListener("click", () => {
+const startQuiz = () => {
     start.classList.add('hidden')
     answersForm.classList.remove('hidden')
+}
+const penalty = () => { secondsLeft -= 15 }
+
+
+
+start.addEventListener("click", () => {
+    startQuiz()
     quizTime()
 })
-
 
 
 answers.addEventListener("click", event => {
