@@ -1,5 +1,5 @@
 const countdown = document.querySelector('#time')
-let secondsLeft = ((questions.length + 1) * 15)
+let secondsLeft
 const answerList = document.querySelector('#answers')
 const question = document.querySelector('#question')
 const start = document.querySelector('#start')
@@ -14,9 +14,12 @@ const array = []
 let questionIndex = 0
 let score
 
-
+function calculateSeconds() {
+    secondsLeft = ((questions.length + 1) * 15)
+}
 
 function quizTime() {
+
     const timerInterval = setInterval(() => {
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
@@ -36,7 +39,10 @@ function displayQuestions(position) {
 
 }
 
-
+function reset() {
+    questionIndex = 0
+    score = 0
+}
 
 
 
@@ -57,11 +63,12 @@ function transition(hide, show) {
 }
 
 start.addEventListener("click", () => {
+    reset()
+    calculateSeconds()
     quizTime()
     transition(start, answersForm)
 
 })
-clearvalues() => { seconds }
 
 submitScore.addEventListener("click", event => {
     event.preventDefault()
@@ -87,6 +94,7 @@ answers.addEventListener("click", event => {
             displayQuestions(questionIndex)
 
         } else {
+            calculateScore()
             transition(answersForm, recordScore)
         }
     }
