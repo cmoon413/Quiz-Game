@@ -1,5 +1,5 @@
 const countdown = document.querySelector('#time')
-
+const highScoreMenu = document.querySelector('#highscores')
 const answerList = document.querySelector('#answers')
 const question = document.querySelector('#question')
 const start = document.querySelector('#start')
@@ -14,6 +14,7 @@ const topScores = document.querySelector('#top-scores')
 const scoreList = document.querySelector('#score-list')
 const back = document.querySelector('#back')
 const clear = document.querySelector('#clear')
+const menus = document.querySelectorAll('.menus')
 
 let secondsLeft
 let questionIndex = 0
@@ -29,7 +30,7 @@ function quizTime() {
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
         if (secondsLeft <= 0) {
-            transition(start, recordScore)
+            transition(recordScore)
             clearInterval(timerInterval)
             countdown.textContent = "time: "
         }
@@ -60,18 +61,22 @@ const calculateScore = () => {
 
 }
 
-function transition(hide, show) {
-    if (!hide.classList.contains('hidden')) {
-        hide.classList.add('hidden')
-        show.classList.remove('hidden')
+function transition(show) {
+
+    for (const menu of menus) {
+        if (!menu.classList.contains('hidden')) {
+            menu.classList.add('hidden')
+        }
     }
+    show.classList.remove('hidden')
+
 }
 
 start.addEventListener("click", () => {
     reset()
     calculateSeconds()
     quizTime()
-    transition(start, answersForm)
+    transition(answersForm)
 
 })
 
@@ -79,7 +84,7 @@ start.addEventListener("click", () => {
 submitScore.addEventListener("click", event => {
     event.preventDefault()
     highscores.push({ initial: initials.value, score: score })
-    transition(recordScore, start)
+    transition(start)
 
 })
 
@@ -90,7 +95,7 @@ answers.addEventListener("click", event => {
             displayQuestions(questionIndex)
         } else {
             calculateScore()
-            transition(answersForm, recordScore)
+            transition(recordScore)
         }
     } else {
 
@@ -102,14 +107,22 @@ answers.addEventListener("click", event => {
 
         } else {
             calculateScore()
-            transition(answersForm, recordScore)
+            transition(recordScore)
         }
     }
 })
+
+highScoreMenu.addEventListener("click", event => {
+
+})
+
 back.addEventListener("click", event => {
 
 })
 clear.addEventListener("click", event => {
 
 })
+
+
+
 displayQuestions(questionIndex)
