@@ -1,5 +1,5 @@
 const countdown = document.querySelector('#time')
-let secondsLeft
+
 const answerList = document.querySelector('#answers')
 const question = document.querySelector('#question')
 const start = document.querySelector('#start')
@@ -8,9 +8,14 @@ const recordScore = document.querySelector('#record-score')
 const finalScore = document.querySelector('#final-score')
 const submitScore = document.querySelector('#submit')
 const initials = document.querySelector('#initials')
-const highScores = window.localStorage
-const array = []
+const highScoresStorage = window.localStorage
+const highscores = []
+const topScores = document.querySelector('#top-scores')
+const scoreList = document.querySelector('#score-list')
+const back = document.querySelector('#back')
+const clear = document.querySelector('#clear')
 
+let secondsLeft
 let questionIndex = 0
 let score
 
@@ -70,12 +75,14 @@ start.addEventListener("click", () => {
 
 })
 
+
 submitScore.addEventListener("click", event => {
     event.preventDefault()
-    array.push({ initial: initials.value, score: score })
+    highscores.push({ initial: initials.value, score: score })
     transition(recordScore, start)
 
 })
+
 answers.addEventListener("click", event => {
     if (event.target.textContent === questions[questionIndex].answer) {
         questionIndex++
@@ -99,6 +106,10 @@ answers.addEventListener("click", event => {
         }
     }
 })
+back.addEventListener("click", event => {
 
+})
+clear.addEventListener("click", event => {
 
+})
 displayQuestions(questionIndex)
