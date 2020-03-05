@@ -26,9 +26,11 @@ function calculateSeconds() {
 
 function quizTime() {
 
-    const timerInterval = setInterval(() => {
+    timerInterval = setInterval(() => {
+
         secondsLeft--;
         countdown.textContent = "time: " + secondsLeft
+
         if (secondsLeft <= 0) {
             transition(recordScore)
             clearInterval(timerInterval)
@@ -69,7 +71,7 @@ const calculateScore = () => {
 }
 
 function resetHighScoresUL() {
-    const child = scoreList.lastElementChild;
+    let child = scoreList.lastElementChild;
     while (child) {
         scoreList.removeChild(child);
         child = scoreList.lastElementChild;
@@ -108,7 +110,6 @@ start.addEventListener("click", () => {
 
 submitScore.addEventListener("click", event => {
     event.preventDefault()
-
     UpdateStorage()
     displayScores()
     transition(topScores)
@@ -142,15 +143,19 @@ answers.addEventListener("click", event => {
 
 
 highScoreMenu.addEventListener("click", event => {
-    transition(highScoreMenu)
+    if (!topScores.classList.contains('hidden')) {
+        transition(topScores)
+    }
 
 
 })
 
 back.addEventListener("click", event => {
-
+    transition(start)
 })
 clear.addEventListener("click", event => {
+    highScoresStorage.clear()
+    resetHighScoresUL()
 
 })
 
