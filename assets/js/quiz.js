@@ -9,12 +9,12 @@ const finalScore = document.querySelector('#final-score')
 const submitScore = document.querySelector('#submit')
 const initials = document.querySelector('#initials')
 const highScoresStorage = window.localStorage
-const highscores = []
 const topScores = document.querySelector('#top-scores')
 const scoreList = document.querySelector('#score-list')
 const back = document.querySelector('#back')
 const clear = document.querySelector('#clear')
 const menus = document.querySelectorAll('.menus')
+
 
 let secondsLeft
 let questionIndex = 0
@@ -50,6 +50,13 @@ function reset() {
     score = 0
 }
 
+function UpdateStorage() {
+    const highscores = JSON.parse(highScoresStorage.getItem('scores')) || []
+    highscores.push({ initial: initials.value, score: score })
+    highScoresStorage.clear()
+    highScoresStorage.setItem('scores', JSON.stringify(highscores))
+
+}
 
 
 function penalty() { secondsLeft -= 15 }
@@ -59,6 +66,24 @@ const calculateScore = () => {
     finalScore.textContent = 'Your final score is ' + score + '!'
 
 
+}
+
+function resetHighScoresUL() {
+    const child = scoreList.lastElementChild;
+    while (child) {
+        scoreList.removeChild(child);
+        child = scoreList.lastElementChild;
+    }
+}
+
+function displayScores() {
+    const scores = JSON.parse(highScoresStorage.getItem('scores'))
+    console.log(JSON.parse(highScoresStorage.getItem(score)))
+    for (let i = 0; i < scores.length; i++) {
+        let li = document.createElement("li")
+        li.textContent = `${i+1}. ${scores[i].initial} ${scores[i].score}`
+        scoreList.appendChild(li)
+    }
 }
 
 function transition(show) {
@@ -83,8 +108,11 @@ start.addEventListener("click", () => {
 
 submitScore.addEventListener("click", event => {
     event.preventDefault()
-    highscores.push({ initial: initials.value, score: score })
-    transition(start)
+
+    UpdateStorage()
+    displayScores()
+    transition(topScores)
+
 
 })
 
@@ -112,7 +140,10 @@ answers.addEventListener("click", event => {
     }
 })
 
+
 highScoreMenu.addEventListener("click", event => {
+    transition(highScoreMenu)
+
 
 })
 
