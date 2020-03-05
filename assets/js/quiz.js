@@ -14,7 +14,7 @@ const scoreList = document.querySelector('#score-list')
 const back = document.querySelector('#back')
 const clear = document.querySelector('#clear')
 const menus = document.querySelectorAll('.menus')
-
+const correctIncorrect = document.querySelector('#correctIncorrect')
 
 let secondsLeft
 let questionIndex = 0
@@ -50,6 +50,7 @@ function displayQuestions(position) {
 function reset() {
     questionIndex = 0
     score = 0
+    correctIncorrect.textContent = ''
 }
 
 function UpdateStorage() {
@@ -122,6 +123,7 @@ answers.addEventListener("click", event => {
         questionIndex++
         if (questionIndex < questions.length) {
             displayQuestions(questionIndex)
+            correctIncorrect.textContent = 'correct!'
         } else {
             calculateScore()
             transition(recordScore)
@@ -133,7 +135,7 @@ answers.addEventListener("click", event => {
 
             penalty()
             displayQuestions(questionIndex)
-
+            correctIncorrect.textContent = 'incorrect!'
         } else {
             calculateScore()
             transition(recordScore)
